@@ -37,6 +37,13 @@ html {
   background-color: rgb(23, 62, 102);
 }
 
+.white-text {
+  color: rgb(255, 255, 255);
+}
+.black-text {
+  color: rgb(0, 0, 0);
+}
+
 /* pieces */
 .whitepawn {
   background-image: url("assets/white-pawn.png");

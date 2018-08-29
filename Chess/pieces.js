@@ -1,6 +1,7 @@
 'use strict';
 var activePiece = null;
 var movePlayer = 'white';
+var turn = document.getElementById('turn');
 var b = [];
 var wpawns = [];
 var bpawns = [];
@@ -15,6 +16,7 @@ class Piece {
     this.valid = [];
   }
   showMoves() {
+    console.log(this.valid);
     board.children[this.row].children[this.col].classList.add('active');
     for(var m of this.valid) {
       board.children[m[0]].children[m[1]].classList.add('possible');
@@ -33,13 +35,14 @@ class Piece {
     if(b[m[0]][m[1]] !== null) {
       taken.push(b[m[0]][m[1]]);
     }
-    console.log(m);
     b[m[0]][m[1]] = b[this.row][this.col];
     b[this.row][this.col] = null;
+    this.row = m[0];
+    this.col = m[1];
     for(var p of repawns) {
-      p.enPass = false;
+      p.enPass = null;
     }
-
+    nextPlayer()
   }
 }
 
@@ -115,7 +118,22 @@ class Knight extends Piece {
     super(color,row,col);
     this.img = 'knight';
   }
-  // getMoves() {}
+  getMoves() {
+    this.valid = [];
+    for(var i = -2; i < 3; i++) {
+      let l = this.col+i
+      if(l > -1 && l < 8 && i !== 0) {
+        for(var j = -1; j < 2; j+=2) {
+          let k = this.row+(3-Math.abs(i))*j;
+          if(k > -1 && k < 8) {
+            if(b[k][l] == null || b[k][l].color != this.color) {
+              this.valid.push([k,l]);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 class Bishop extends Piece {
@@ -123,15 +141,37 @@ class Bishop extends Piece {
     super(color,row,col);
     this.img = 'bishop';
   }
-  // getMoves() {}
+  getMoves() {
+    this.valid = [];
+    for(var i = -1; i < 2; i+=2) {
+      for(var j = -1; j < 2; j+=2) {
+        for(var m = 1; m < 8; m++) {
+          let k = this.row+(m*i);
+          let l = this.col+(m*j);
+          if(k < 0 || k > 7 || l < 0 || l > 7) break;
+          if(b[k][l] == null) {
+            this.valid.push([k,l]);
+          } else {
+            if(b[k][l].color != this.color) {
+              this.valid.push([k,l]);
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
 }
 
 class Rook extends Piece {
   constructor(color,row,col) {
     super(color,row,col);
     this.img = 'rook';
+    this.castle = true;
   }
-  // getMoves() {}
+  getMoves() {
+    this.valid = [];
+  }
 }
 
 class Queen extends Piece {

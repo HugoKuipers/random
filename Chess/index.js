@@ -97,11 +97,23 @@ function resetColors() {
   activePiece = null;
 }
 
+function nextPlayer() {
+  if(movePlayer == 'black') {
+    movePlayer = 'white';
+    turn.innerHTML = 'White';
+    turn.className = 'white-text';
+  } else {
+    movePlayer = 'black';
+    turn.innerHTML = 'Black';
+    turn.className = 'Black-text';
+  }
+}
+
 board.onclick = function(e) {
   if(e.target.classList.contains('possible')) {
     let r = e.target.parentElement.classList[1].substr(4,1);
     let c = e.target.classList[1].substr(4,1);
-    activePiece.move([r,c])
+    activePiece.move([parseInt(r),parseInt(c)])
     displayBoard();
     resetColors();
   } else if(e.target.classList[0] == 'b-col' && e.target.classList[3].substr(0,5) == movePlayer) {
