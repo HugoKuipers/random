@@ -112,6 +112,7 @@ function resetColors() {
     pos[i].classList.remove('possible');
   }
   activePiece = null;
+  promo.className = 'inv';
 }
 
 function moveIn(m, list) {
@@ -122,12 +123,27 @@ function moveIn(m, list) {
 }
 
 function restore(re) {
-  console.log(re);
   for(let p of re) {
-    console.log(p);
+    let pieces;
+    let taken;
+    if(p.piece !== null && p.piece.color == 'white') {
+      taken = wtaken;
+      pieces = wpieces;
+    } else if(p.piece !== null && p.piece.color == 'black') {
+      taken = btaken;
+      pieces = bpieces;
+    }
+    if(p.piece !== null && taken.indexOf(p.piece) !== -1) {
+      taken.splice(taken.indexOf(p.piece));
+      pieces.push(p.piece);
+    }
     if(p.ex !== null) {
       if(p.ex == 'd') p.piece.dubble = true;
       if(p.ex == 'c') p.piece.castle = true;
+    }
+    if(p.piece !== null) {
+      p.piece.row = p.row;
+      p.piece.col = p.col;
     }
     b[p.row][p.col] = p.piece;
   }
@@ -139,17 +155,16 @@ function checkState(opp,king) {
     danger = danger.concat(p.getMoves(true));
   }
   if(moveIn([king.row,king.col],danger)) {
-    check = true;
     mate = checkMate(opp,king);
+    check = true;
   } else {
     check = false;
   }
+  if(mate) gameOver(opp[0].color);
 }
 
 function quickCheck(opp,king) {
-  console.log(opp);
   for(var p of opp) {
-    console.log(p);
     if(moveIn([king.row,king.col],p.getMoves(true))) {
       return false;
     }
@@ -158,25 +173,23 @@ function quickCheck(opp,king) {
 }
 
 function checkMate(opp,king) {
-  console.log("gotta check mate");
   let pcs = king.color == 'white' ? wpieces : bpieces;
   for(var piece of pcs) {
     piece.getMoves();
     for(var move of piece.valid) {
       let reVal = piece.move(move);
-      console.log(reVal);
       if(quickCheck(opp,king)) {
-        console.log();
-        mate = false;
+        restore(reVal);
         return false;
       }
       restore(reVal);
-      console.log(b);
     }
   }
-  console.log('checkmate Mate!');
-  mate = true;
   return true;
+}
+
+function gameOver(winner) {
+  alert('Checkmate, '+winner+' wins!');
 }
 
 function nextPlayer() {
@@ -194,16 +207,17 @@ function nextPlayer() {
 }
 
 board.onclick = function(e) {
-  if(e.target.classList.contains('possible')) {
+  if(e.target.classList.contains('possible') && e.target.classList.contains('extra-Q')) {
+    let r = e.target.parentElement.classList[1].substr(4,1);
+    let c = e.target.classList[1].substr(4,1);
+    promo.className = movePlayer;
+    proField.innerHTML = r+c;
+  } else if(e.target.classList.contains('possible')) {
     let r = e.target.parentElement.classList[1].substr(4,1);
     let c = e.target.classList[1].substr(4,1);
     if(e.target.classList.contains('extra-move')) {
-      if(e.target.classList.contains('extra-Q')) {
-        //
-      } else {
-        let ex = e.target.classList[e.target.classList.length-1].substr(6,1);
-        activePiece.move([parseInt(r),parseInt(c),ex]);
-      }
+      let ex = e.target.classList[e.target.classList.length-1].substr(6,1);
+      activePiece.move([parseInt(r),parseInt(c),ex]);
     } else {
       activePiece.move([parseInt(r),parseInt(c)]);
     }
@@ -222,8 +236,15 @@ board.onclick = function(e) {
   }
 }
 
+promo.onclick = function(e) {
+  if(e.target.classList.contains('pro-choice')) {
+    promo.className = movePlayer;
+    let r = proField.innerHTML.substr(0,1);
+    let c = proField.innerHTML.substr(1,1);
+    let pro = e.target.id.substr(0,1);
+    activePiece.move([parseInt(r),parseInt(c),pro]);
+  }
+}
+
 resetBoard();
 displayBoard();
-
-let a = [[6,6],[5,5]]
-console.log(a.indexOf([5,5]));

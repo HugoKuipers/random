@@ -44,6 +44,56 @@ html {
   color: rgb(0, 0, 0);
 }
 
+.inv {
+  display: none;
+}
+
+#promo {
+  position: absolute;
+  top: 300px;
+  left: 400px;
+  z-index: 10;
+  background-color: rgb(237, 234, 223);
+  padding: 10px;
+}
+#promo div {
+  width: 100px;
+  height: 100px;
+  margin: 25px;
+  border: 1px solid black;
+  background-size: 80px 80px;
+  background-color: rgb(129, 184, 224);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#promo div:hover {
+  background-color: rgb(23, 62, 102);
+}
+.white #Qp-queen {
+  background-image: url("assets/white-queen.png");
+}
+.white #Rp-rook {
+  background-image: url("assets/white-rook.png");
+}
+.white #Kp-knight {
+  background-image: url("assets/white-knight.png");
+}
+.white #Bp-bishop {
+  background-image: url("assets/white-bishop.png");
+}
+.black #Qp-queen {
+  background-image: url("assets/black-queen.png");
+}
+.black #Rp-rook {
+  background-image: url("assets/black-rook.png");
+}
+.black #Kp-knight {
+  background-image: url("assets/black-knight.png");
+}
+.black #Bp-bishop {
+  background-image: url("assets/black-bishop.png");
+}
+
 /* pieces */
 .whitepawn {
   background-image: url("assets/white-pawn.png");
