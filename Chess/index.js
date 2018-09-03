@@ -126,16 +126,20 @@ function restore(re) {
   for(let p of re) {
     let pieces;
     let taken;
-    if(p.piece !== null && p.piece.color == 'white') {
-      taken = wtaken;
-      pieces = wpieces;
-    } else if(p.piece !== null && p.piece.color == 'black') {
-      taken = btaken;
-      pieces = bpieces;
-    }
-    if(p.piece !== null && taken.indexOf(p.piece) !== -1) {
-      taken.splice(taken.indexOf(p.piece));
-      pieces.push(p.piece);
+    if(p.piece !== null) {
+      if(p.piece.color == 'white') {
+        taken = wtaken;
+        pieces = wpieces;
+      } else if(p.piece.color == 'black') {
+        taken = btaken;
+        pieces = bpieces;
+      }
+      if(p.pro) {
+        pieces.splice(pieces.indexOf(p.piece));
+      } else if(taken.indexOf(p.piece) !== -1) {
+        taken.splice(taken.indexOf(p.piece));
+        pieces.push(p.piece);
+      }
     }
     if(p.ex !== null) {
       if(p.ex == 'd') p.piece.dubble = true;
@@ -243,6 +247,9 @@ promo.onclick = function(e) {
     let c = proField.innerHTML.substr(1,1);
     let pro = e.target.id.substr(0,1);
     activePiece.move([parseInt(r),parseInt(c),pro]);
+    nextPlayer();
+    displayBoard();
+    resetColors();
   }
 }
 

@@ -34,6 +34,7 @@ class Piece {
     this.row = row;
     this.col = col;
     this.valid = [];
+    this.pro = false;
   }
   showMoves() {
     board.children[this.row].children[this.col].classList.add('active');
@@ -172,26 +173,27 @@ class Pawn extends Piece {
       let taken;
       let pieces;
       if(this.color == 'white') {
-        taken = btaken;
-        pieces = bpieces;
-      } else {
         taken = wtaken;
         pieces = wpieces;
+      } else {
+        taken = btaken;
+        pieces = bpieces;
       }
       pieces.splice(pieces.indexOf(b[m[0]][m[1]]),1);
       taken.push(b[m[0]][m[1]]);
       if(m[2] == 'Q') {
-        b[m[0]][m[1]] = new Queen(m[0],m[1],this.color);
+        b[m[0]][m[1]] = new Queen(this.color,m[0],m[1]);
       } else if(m[2] == 'R') {
-        b[m[0]][m[1]] = new Rook(m[0],m[1],this.color);
+        b[m[0]][m[1]] = new Rook(this.color,m[0],m[1]);
       } else if(m[2] == 'K') {
-        b[m[0]][m[1]] = new Knight(m[0],m[1],this.color);
+        b[m[0]][m[1]] = new Knight(this.color,m[0],m[1]);
       } else if(m[2] == 'B') {
-        b[m[0]][m[1]] = new Bishop(m[0],m[1],this.color);
+        b[m[0]][m[1]] = new Bishop(this.color,m[0],m[1]);
       }
       b[m[0]][m[1]].pro = true;
       pieces.push(b[m[0]][m[1]]);
       let rv = new Pos(m[0],m[1],b[m[0]][m[1]]);
+      rv.pro = true;
       reVal.unshift(rv);
     }
     return reVal;
