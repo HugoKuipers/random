@@ -15,6 +15,10 @@ var btaken = [];
 var danger = [];
 var wking = [];
 var bking = [];
+// var wplayer = new Mai(2,'white');
+var wplayer = 'human';
+var bplayer = new Mai(2,'black');
+// var bplayer = 'human'
 var check = false;
 var mate = false;
 
@@ -358,7 +362,7 @@ class King extends Piece {
       if(b[this.row][0] !== null && b[this.row][0].img == 'rook' && b[this.row][0].castle && b[this.row][3] === null && b[this.row][2] === null && b[this.row][1] === null && !moveIn([this.row,4],danger) && !moveIn([this.row,3],danger) && !moveIn([this.row,2],danger)) {
         this.pushValid(check,[this.row,2,'C']);
       }
-      if(b[this.row][0] !== null && b[this.row][7].img == 'rook' && b[this.row][7].castle && b[this.row][5] === null && b[this.row][6] === null && !moveIn([this.row,4],danger) && !moveIn([this.row,5],danger) && !moveIn([this.row,6],danger)) {
+      if(b[this.row][7] !== null && b[this.row][7].img == 'rook' && b[this.row][7].castle && b[this.row][5] === null && b[this.row][6] === null && !moveIn([this.row,4],danger) && !moveIn([this.row,5],danger) && !moveIn([this.row,6],danger)) {
         this.pushValid(check,[this.row,6,'c']);
       }
     }
@@ -369,15 +373,19 @@ class King extends Piece {
     if(this.castle) reVal[1].ex = 'c';
     this.castle = false;
     if(m[2] == 'C') {
-      reVal.push(new Pos(m[this.row],0,b[this.row][0]));
-      reVal.push(new Pos(m[this.row],3,b[this.row][3]));
+      reVal.push(new Pos(this.row,0,b[this.row][0]));
+      reVal.push(new Pos(this.row,3,b[this.row][3]));
       b[this.row][3] = b[this.row][0];
       b[this.row][0] = null;
+      b[this.row][3].row = this.row;
+      b[this.row][3].col = 3;
     } else if (m[2] == 'c') {
-      reVal.push(new Pos(m[this.row],7,b[this.row][7]));
-      reVal.push(new Pos(m[this.row],5,b[this.row][5]));
+      reVal.push(new Pos(this.row,7,b[this.row][7]));
+      reVal.push(new Pos(this.row,5,b[this.row][5]));
       b[this.row][5] = b[this.row][7];
       b[this.row][7] = null;
+      b[this.row][5].row = this.row;
+      b[this.row][5].col = 5;
     }
     return reVal;
   }

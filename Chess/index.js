@@ -164,7 +164,9 @@ function checkState(opp,king) {
   } else {
     check = false;
   }
-  if(mate) gameOver(opp[0].color);
+  if(mate) {
+    gameOver(opp[0].color);
+  }
 }
 
 function quickCheck(opp,king) {
@@ -202,11 +204,23 @@ function nextPlayer() {
     checkState(bpieces,wking);
     turn.innerHTML = 'White';
     turn.className = 'white-text';
+    if(wplayer !== 'human') {
+      displayBoard();
+      resetColors();
+      wplayer.move();
+      nextPlayer();
+    }
   } else {
     movePlayer = 'black';
     checkState(wpieces,bking);
     turn.innerHTML = 'Black';
     turn.className = 'Black-text';
+    if(bplayer !== 'human') {
+      displayBoard();
+      resetColors();
+      bplayer.move();
+      nextPlayer();
+    }
   }
 }
 
@@ -255,3 +269,5 @@ promo.onclick = function(e) {
 
 resetBoard();
 displayBoard();
+
+console.log(b,'white pieces:',wpieces,'white taken:',wtaken,'black pieces:',bpieces,'black taken:',btaken);
