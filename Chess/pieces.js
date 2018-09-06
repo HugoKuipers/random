@@ -103,6 +103,7 @@ class Pawn extends Piece {
     this.img = 'pawn';
     this.enPass = null;
     this.dubble = true;
+    this.value = 1;
   }
   getMoves(check) {
     this.valid = [];
@@ -204,6 +205,7 @@ class Knight extends Piece {
   constructor(color,row,col) {
     super(color,row,col);
     this.img = 'knight';
+    this.value = 3;
   }
   getMoves(check) {
     this.valid = [];
@@ -228,6 +230,7 @@ class Bishop extends Piece {
   constructor(color,row,col) {
     super(color,row,col);
     this.img = 'bishop';
+    this.value = 3.5;
   }
   getMoves(check) {
     this.valid = [];
@@ -257,6 +260,7 @@ class Rook extends Piece {
     super(color,row,col);
     this.img = 'rook';
     this.castle = true;
+    this.value = 5;
   }
   getMoves(check) {
     this.valid = [];
@@ -304,6 +308,7 @@ class Queen extends Piece {
   constructor(color,row,col) {
     super(color,row,col);
     this.img = 'queen';
+    this.value = 9;
   }
   getMoves(check) {
     this.valid = [];
@@ -334,6 +339,7 @@ class King extends Piece {
     super(color,row,col);
     this.img = 'king';
     this.castle = true;
+    this.value = 99;
   }
   getMoves(check) {
     this.valid = [];
