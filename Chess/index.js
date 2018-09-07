@@ -72,6 +72,15 @@ function createBoard() {
 
 function resetBoard() {
   board.innerHTML = '';
+  movePlayer = 'white';
+  pastBoards = [];
+  wpieces = [];
+  bpieces = [];
+  danger = [];
+  wking = [];
+  bking = [];
+  check = false;
+  mate = false;
   b = [];
   wpawns = [];
   bpawns = [];
@@ -113,6 +122,7 @@ function resetColors() {
   }
   activePiece = null;
   promo.className = 'inv';
+  newW.className = 'inv';
 }
 
 function moveIn(m, list) {
@@ -120,6 +130,41 @@ function moveIn(m, list) {
     if(m[0] == l[0] && m[1] == l[1] && (m.length < 3 || l.length < 3 || m[2] == l[2])) return true;
   }
   return false;
+}
+
+function prevBoard() {
+  for(var pb of pastBoards) {
+    if(b == pb[0] && pb[1] == 2) return true;
+  }
+  return false;
+}
+
+function addBoard() {
+  for(var pb of pastBoards) {
+    if(b == pb[0]) {
+      pb[1]++;
+      return;
+    }
+  }
+  pastBoards.push([b,1]);
+}
+
+function debug() {
+  console.log('board:');
+  console.log(b);
+  console.log('white pieces:');
+  console.log(wpieces);
+  console.log('white taken:');
+  console.log(wtaken);
+  console.log('black pieces:');
+  console.log(bpieces);
+  console.log('black taken:');
+  console.log(btaken);
+}
+
+function stopMai() {
+  wplayer = 'human';
+  bplayer = 'human';
 }
 
 function restore(re) {
@@ -166,7 +211,9 @@ function checkState(opp,king) {
   }
   if(mate) {
     gameOver(opp[0].color);
+    return true;
   }
+  return false;
 }
 
 function quickCheck(opp,king) {
@@ -201,14 +248,18 @@ function gameOver(winner) {
 function nextPlayer() {
   if(movePlayer == 'black') {
     movePlayer = 'white';
-    checkState(bpieces,wking);
+    if(checkState(bpieces,wking)) return;
     turn.innerHTML = 'White';
     turn.className = 'white-text';
     if(wplayer !== 'human') {
       displayBoard();
       resetColors();
-      wplayer.move();
-      nextPlayer();
+      setTimeout(()=>{
+        wplayer.move();
+        nextPlayer();
+        displayBoard();
+        resetColors();
+      },1);
     }
   } else {
     movePlayer = 'black';
@@ -218,8 +269,12 @@ function nextPlayer() {
     if(bplayer !== 'human') {
       displayBoard();
       resetColors();
-      bplayer.move();
-      nextPlayer();
+      setTimeout(()=>{
+        bplayer.move();
+        nextPlayer();
+        displayBoard();
+        resetColors();
+      },1);
     }
   }
 }
@@ -267,7 +322,33 @@ promo.onclick = function(e) {
   }
 }
 
+newBut.onclick = function() {
+  newW.classList.remove('inv');
+}
+
+startNew.onclick = function() {
+  let startForMai = false;
+  if(newW.children[1].children[0].value == 'Human') {
+    wplayer = 'human';
+  } else {
+    let lvl = newW.children[1].children[1].value;
+    wplayer = new Mai(lvl,'white');
+    startForMai = true;
+  }
+  if(newW.children[2].children[0].value == 'Human') {
+    bplayer = 'human';
+  } else {
+    let lvl = newW.children[2].children[1].value;
+    bplayer = new Mai(lvl,'black');
+  }
+  resetBoard();
+  displayBoard();
+  resetColors();
+  if(startForMai) {
+    movePlayer = 'black';
+    nextPlayer();
+  }
+}
+
 resetBoard();
 displayBoard();
-
-console.log(b,'white pieces:',wpieces,'white taken:',wtaken,'black pieces:',bpieces,'black taken:',btaken);

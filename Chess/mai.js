@@ -54,20 +54,29 @@ class Mai {
     }
     let bScore = 0;
     let wScore = 0;
-    for(var p of wpieces) {
-      wScore += p.value;
-      if(p.row > 2 && p.row < 5 && p.col > 2 && p.col < 5) {
-        wScore+=2;
-      } else if(p.row > 1 && p.row < 6 && p.col > 1 && p.col < 6) {
-        wScore++;
+    for(var i = 0; i < 2; i++) {
+      let pieces = wpieces;
+      let score = 0;
+      if(i == 1) {
+        pieces = bpieces;
       }
-    }
-    for(var p of bpieces) {
-      bScore += p.value;
-      if(p.row > 2 && p.row < 5 && p.col > 2 && p.col < 5) {
-        bScore+=0.8;
-      } else if(p.row > 1 && p.row < 6 && p.col > 1 && p.col < 6) {
-        bScore+=0.4;
+      for(var p of pieces) {
+        score += p.value;
+        if(p.img !== 'king') {
+          if(p.row > 2 && p.row < 5 && p.col > 2 && p.col < 5) {
+            score+=0.8;
+          } else if(p.row > 1 && p.row < 6 && p.col > 1 && p.col < 6) {
+            score+=0.4;
+          }
+        } else {
+          if(p.row < 2 || p.row > 5) score+=0.4;
+          if(p.col < 2 || p.col > 5) score+=0.4;
+        }
+      }
+      if(i == 1) {
+        bScore = score;
+      } else {
+        wScore = score;
       }
     }
     if(this.color == 'white') {
@@ -101,10 +110,10 @@ class Mai {
         opp = wpieces;
       }
       if(this.color == turn) {
-        bestResult = [-9999];
+        bestResult = [-99999];
         myTurn = true;
       } else {
-        bestResult = [9999];
+        bestResult = [99999];
         myTurn = false;
       }
       for(var p of me) {
@@ -143,6 +152,7 @@ class Mai {
   }
   move() {
     let result = this.miniMax(this.color,this.depth,-9999,9999);
+    console.log(result);
     result[1].move(result[2]);
   }
 }

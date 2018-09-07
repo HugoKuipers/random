@@ -94,6 +94,32 @@ html {
   background-image: url("assets/black-bishop.png");
 }
 
+#new-but {
+  position: absolute;
+  left: 550px;
+  top: 10px;
+  width: 200px;
+  height: 40px;
+  background-color: rgb(67, 97, 250);
+  border: 1px solid rgb(0, 9, 50);
+  border-radius: 4px;
+}
+#new {
+  position: absolute;
+  left: 550px;
+  top: 300px;
+  width: auto;
+  height: auto;
+  padding: 40px;
+  background-color: rgb(165, 210, 242);
+  border: 1px solid rgb(0, 9, 50);
+  border-radius: 20px;
+  text-align: center;
+}
+#new h3 {
+  margin-top: 0px;
+}
+
 /* pieces */
 .whitepawn {
   background-image: url("assets/white-pawn.png");
