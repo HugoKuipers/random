@@ -1,11 +1,11 @@
 {
   "name": "chess",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "ya know, chess",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "postinstall": "install-app-deps",
-    "start": "npm install && electron ./app",
+    "start": "electron .",
     "pack": "build --dir",
     "dist": "build"
   },
@@ -38,6 +38,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "ajv": "^6.5.3",
     "electron": "latest",
     "electron-builder": "latest",
     "electron-builder-squirrel-windows": "^20.28.3"
