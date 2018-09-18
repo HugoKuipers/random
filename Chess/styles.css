@@ -36,6 +36,12 @@ html {
 .possible.black {
   background-color: rgb(23, 62, 102);
 }
+.previous.white {
+  background-color: rgb(194, 116, 255);
+}
+.previous.black {
+  background-color: rgb(94, 8, 161)
+}
 
 .white-text {
   color: rgb(255, 255, 255);

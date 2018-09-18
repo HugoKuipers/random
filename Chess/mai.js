@@ -153,6 +153,6 @@ class Mai {
   move() {
     let result = this.miniMax(this.color,this.depth,-9999,9999);
     console.log(result);
-    result[1].move(result[2]);
+    return result[1].move(result[2]);
   }
 }
