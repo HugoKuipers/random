@@ -103,9 +103,10 @@ function displayBoard() {
   }
 }
 
-function resetColors() {
+function resetColors(keep) {
   let act = document.getElementsByClassName('active');
   let pos = document.getElementsByClassName('possible');
+  let pre = document.getElementsByClassName('previous');
   for(let i = act.length-1; i >= 0; i--) {
     act[i].classList.remove('active');
   }
@@ -120,9 +121,19 @@ function resetColors() {
     pos[i].classList.remove('extra-C');
     pos[i].classList.remove('possible');
   }
+  if(!keep) {
+    for(let i = pre.length-1; i >= 0; i--) {
+      act[i].classList.remove('previous');
+    }
+  }
   activePiece = null;
   promo.className = 'inv';
   newW.className = 'inv';
+}
+
+function colorLast(moveResult) {
+  board.children[moveResult[0].row].children[moveResult[0].col].classList.add('previous');
+  board.children[moveResult[1].row].children[moveResult[1].col].classList.add('previous');
 }
 
 function moveIn(m, list) {
@@ -252,13 +263,12 @@ function nextPlayer() {
     turn.innerHTML = 'White';
     turn.className = 'white-text';
     if(wplayer !== 'human') {
-      displayBoard();
-      resetColors();
       setTimeout(()=>{
-        wplayer.move();
+        let pre = wplayer.move();
         nextPlayer();
         displayBoard();
         resetColors();
+        colorLast(pre);
       },1);
     }
   } else {
@@ -267,13 +277,12 @@ function nextPlayer() {
     turn.innerHTML = 'Black';
     turn.className = 'Black-text';
     if(bplayer !== 'human') {
-      displayBoard();
-      resetColors();
       setTimeout(()=>{
-        bplayer.move();
+        let pre = bplayer.move();
         nextPlayer();
         displayBoard();
         resetColors();
+        colorLast(pre);
       },1);
     }
   }
@@ -286,19 +295,21 @@ board.onclick = function(e) {
     promo.className = movePlayer;
     proField.innerHTML = r+c;
   } else if(e.target.classList.contains('possible')) {
+    let pre;
     let r = e.target.parentElement.classList[1].substr(4,1);
     let c = e.target.classList[1].substr(4,1);
     if(e.target.classList.contains('extra-move')) {
       let ex = e.target.classList[e.target.classList.length-1].substr(6,1);
-      activePiece.move([parseInt(r),parseInt(c),ex]);
+      pre = activePiece.move([parseInt(r),parseInt(c),ex]);
     } else {
-      activePiece.move([parseInt(r),parseInt(c)]);
+      pre = activePiece.move([parseInt(r),parseInt(c)]);
     }
     nextPlayer();
     displayBoard();
     resetColors();
+    colorLast(pre);
   } else if(e.target.classList[0] == 'b-col') {
-    resetColors();
+    resetColors(true);
     if(e.target.classList.length > 3 && e.target.classList[3].substr(0,5) == movePlayer) {
       let r = e.target.parentElement.classList[1].substr(4,1);
       let c = e.target.classList[1].substr(4,1);
@@ -315,10 +326,11 @@ promo.onclick = function(e) {
     let r = proField.innerHTML.substr(0,1);
     let c = proField.innerHTML.substr(1,1);
     let pro = e.target.id.substr(0,1);
-    activePiece.move([parseInt(r),parseInt(c),pro]);
+    let pre = activePiece.move([parseInt(r),parseInt(c),pro]);
     nextPlayer();
     displayBoard();
     resetColors();
+    colorLast(pre);
   }
 }
 

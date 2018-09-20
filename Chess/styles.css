@@ -30,6 +30,12 @@ html {
 .active.black {
   background-color: rgb(23, 102, 27);
 }
+.previous.white {
+  background-color: rgb(194, 116, 255);
+}
+.previous.black {
+  background-color: rgb(94, 8, 161)
+}
 .possible.white {
   background-color: rgb(129, 184, 224);
 }
