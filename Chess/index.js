@@ -222,7 +222,7 @@ function checkMate(opp, king) {
     piece.getMoves();
     for (var move of piece.valid) {
       let reVal = piece.move(move);
-      if (quickCheck(opp, king)) {
+      if(quickCheck(opp, king)) {
         restore(reVal);
         return false;
       }

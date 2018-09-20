@@ -136,9 +136,11 @@ class Pawn extends Piece {
       const doubleSet = this.row + 2 * dir;
       if (this.double && b[doubleSet][this.col] === null) {
         this.pushValid(check, [doubleSet, this.col]);
-        for (var i = this.col - 1; i < this.col + 2; i += 2)
-          if (i > 0 && i < 7 && b[doubleSet][i] != null && b[doubleSet][i].img == 'pawn' && b[doubleSet][i].color != this.color)
+        for (var i = this.col - 1; i < this.col + 2; i += 2) {
+          if (i > 0 && i < 7 && b[doubleSet][i] != null && b[doubleSet][i].img == 'pawn' && b[doubleSet][i].color != this.color) {
             b[doubleSet][i].enPass = [newRow, this.col, 'e'];
+          }
+        }
       }
     }
 
@@ -146,6 +148,10 @@ class Pawn extends Piece {
   }
   move(m) {
     let reVal = super.move(m);
+    // if (m[2]) {
+    //   stopMai()
+    //   debug()
+    // }
 
     if (this.double) reVal[1].ex = 'd';
     this.double = false;

@@ -18,6 +18,7 @@ class Mai {
     }
     danger = [];
     for (var p of opp) {
+      console.log('upstate');
       danger = danger.concat(p.getMoves(true));
     }
     if (moveIn([king.row, king.col], danger)) {
@@ -36,6 +37,7 @@ class Mai {
     return 1;
   }
   eva(turn) {
+    console.log('we in eva');
     let king;
     let opp;
     if (turn == 'white') {
@@ -45,13 +47,20 @@ class Mai {
       king = bking;
       opp = wpieces;
     }
-    if (checkMate(opp, king)) {
+    
+    console.log('before');
+
+    let temp_danger = [];
+    for (var p of opp) temp_danger = temp_danger.concat(p.getMoves(true));
+
+    if (moveIn([king.row, king.col], temp_danger)) if (checkMate(opp, king)) {
       if (turn == this.color) {
         return -99999;
       } else {
         return 99999;
       }
     }
+    console.log('after');
     let bScore = 0;
     let wScore = 0;
     for (var i = 0; i < 2; i++) {
@@ -121,18 +130,20 @@ class Mai {
         p.getMoves();
         for (var move of p.valid) {
           let reVal = p.move(move);
+          displayBoard();
+          console.log(depth);
           let result = this.miniMax(nColor, depth - 1, alpha, beta);
           // console.log(depth);
           if (myTurn) {
             if (depth == 2) {
-              console.log(depth, 'blablbalbalblabkjalblaba');
+              // console.log(depth, 'blablbalbalblabkjalblaba');
             }
             if (result[0] > bestResult[0]) {
-              console.log(result, bestResult);
+              // console.log(result, bestResult);
               bestResult = result;
               bestResult[1] = p;
               bestResult[2] = move;
-              console.log(bestResult, depth);
+              // console.log(bestResult, depth);
             }
             // if(result[0] > bestResult[0] || (result[0] === bestResult[0] && Math.random() > 0.3)) {
             //   bestResult = result;
@@ -147,10 +158,11 @@ class Mai {
             }
           } else {
             if (result[0] < bestResult[0]) {
+              // console.log(result, bestResult);
               bestResult = result;
               bestResult[1] = p;
               bestResult[2] = move;
-              console.log(bestResult, depth);
+              // console.log(bestResult, depth);
             }
             beta = Math.min(beta, [bestResult[0]]);
             if (alpha >= beta) {
@@ -166,7 +178,7 @@ class Mai {
   }
   move() {
     let result = this.miniMax(this.color, this.depth, -9999, 9999);
-    console.log(result);
+    // console.log(result);
     return result[1].move(result[2]);
   }
 }
