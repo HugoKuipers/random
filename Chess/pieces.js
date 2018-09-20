@@ -164,10 +164,13 @@ class Pawn extends Piece {
 
       reVal.push(new Pos(row, col, b[row][col]));
       pieces.splice(pieces.indexOf(b[row][col]), 1);
+      console.log(b[row][col]);
       taken.push(b[row][col]);
       b[row][col] = null;
     } else {
       pieces.splice(pieces.indexOf(b[row][col]), 1);
+      // TODO :: sometimes b[row][col] is null here as well? need to check
+      console.log(b[row][col]);
       taken.push(b[row][col]);
 
       if (m[2] == 'Q') b[row][col] = new Queen(this.color, row, col);

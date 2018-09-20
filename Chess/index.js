@@ -172,14 +172,11 @@ function stopMai() {
 
 function restore(re) {
   for (let p of re) {
-    let pieces;
-    let taken;
-
     if (p.piece !== null) {
       const black = p.piece.color === 'black';
 
-      taken = black ? btaken : wtaken;
-      pieces = black ? bpieces : wpieces;
+      let taken = black ? btaken : wtaken;
+      let pieces = black ? bpieces : wpieces;
 
       if (p.promotion) {
         pieces.splice(pieces.indexOf(p.piece));
