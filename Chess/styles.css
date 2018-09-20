@@ -34,7 +34,7 @@ html {
   background-color: rgb(194, 116, 255);
 }
 .previous.black {
-  background-color: rgb(94, 8, 161)
+  background-color: rgb(94, 8, 161);
 }
 .possible.white {
   background-color: rgb(129, 184, 224);
@@ -76,28 +76,28 @@ html {
   background-color: rgb(23, 62, 102);
 }
 .white #Qp-queen {
-  background-image: url("assets/white-queen.png");
+  background-image: url('assets/white-queen.png');
 }
 .white #Rp-rook {
-  background-image: url("assets/white-rook.png");
+  background-image: url('assets/white-rook.png');
 }
 .white #Kp-knight {
-  background-image: url("assets/white-knight.png");
+  background-image: url('assets/white-knight.png');
 }
 .white #Bp-bishop {
-  background-image: url("assets/white-bishop.png");
+  background-image: url('assets/white-bishop.png');
 }
 .black #Qp-queen {
-  background-image: url("assets/black-queen.png");
+  background-image: url('assets/black-queen.png');
 }
 .black #Rp-rook {
-  background-image: url("assets/black-rook.png");
+  background-image: url('assets/black-rook.png');
 }
 .black #Kp-knight {
-  background-image: url("assets/black-knight.png");
+  background-image: url('assets/black-knight.png');
 }
 .black #Bp-bishop {
-  background-image: url("assets/black-bishop.png");
+  background-image: url('assets/black-bishop.png');
 }
 
 #new-but {
@@ -128,38 +128,38 @@ html {
 
 /* pieces */
 .whitepawn {
-  background-image: url("assets/white-pawn.png");
+  background-image: url('assets/white-pawn.png');
 }
 .whiteknight {
-  background-image: url("assets/white-knight.png");
+  background-image: url('assets/white-knight.png');
 }
 .whitebishop {
-  background-image: url("assets/white-bishop.png");
+  background-image: url('assets/white-bishop.png');
 }
 .whiterook {
-  background-image: url("assets/white-rook.png");
+  background-image: url('assets/white-rook.png');
 }
 .whitequeen {
-  background-image: url("assets/white-queen.png");
+  background-image: url('assets/white-queen.png');
 }
 .whiteking {
-  background-image: url("assets/white-king.png");
+  background-image: url('assets/white-king.png');
 }
 .blackpawn {
-  background-image: url("assets/black-pawn.png");
+  background-image: url('assets/black-pawn.png');
 }
 .blackknight {
-  background-image: url("assets/black-knight.png");
+  background-image: url('assets/black-knight.png');
 }
 .blackbishop {
-  background-image: url("assets/black-bishop.png");
+  background-image: url('assets/black-bishop.png');
 }
 .blackrook {
-  background-image: url("assets/black-rook.png");
+  background-image: url('assets/black-rook.png');
 }
 .blackqueen {
-  background-image: url("assets/black-queen.png");
+  background-image: url('assets/black-queen.png');
 }
 .blackking {
-  background-image: url("assets/black-king.png");
+  background-image: url('assets/black-king.png');
 }
