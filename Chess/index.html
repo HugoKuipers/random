@@ -1,67 +1,72 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Chess</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="icon" href="assets/chess-logo.jpg">
-  </head>
-  <body>
-    <div class="info">
-      <h2 id="turn" class="white-text">White</h2>
-    </div>
-    <div class="field">
-      <table id="board">
-        <tr class="b-row row-8">
-          <td class="b-col col-a"></td>
-        </tr>
-      </table>
-      <div id="promo" class="inv">
-        <h3 class="center">Choose a piece to promote to:</h3>
-        <div class="promotion-choice" id="Qp-queen"></div>
-        <div class="promotion-choice" id="Rp-rook"></div>
-        <div class="promotion-choice" id="Kp-knight"></div>
-        <div class="promotion-choice" id="Bp-bishop"></div>
-        <span id="promotion-field" class="inv"></span>
-      </div>
-    </div>
 
-    <button id="new-but">New game</button>
-    <div id="new" class="inv">
-      <h3 class="center">Choose players:</h3>
-      <p>White:
-        <select name="type">
-          <option value="Human">Human</option>
-          <option value="Mai">Mai</option>
-        </select>
-        <select name="lvl">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-      </p>
-      <p>Black:
-        <select name="type">
-          <option value="Human">Human</option>
-          <option value="Mai">Mai</option>
-        </select>
-        <select name="lvl">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-      </p>
-      <button id="start-new">Start new game</button>
+<head>
+  <meta charset="utf-8">
+  <title>Chess</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="icon" href="assets/chess-logo.jpg">
+</head>
+
+<body>
+  <div class="info">
+    <h2 id="turn" class="white-text">White</h2>
+  </div>
+  <div class="field">
+    <table id="board">
+      <tr class="b-row row-8">
+        <td class="b-col col-a"></td>
+      </tr>
+    </table>
+    <div id="promo" class="inv">
+      <h3 class="center">Choose a piece to promote to:</h3>
+      <div class="promotion-choice" id="Qp-queen"></div>
+      <div class="promotion-choice" id="Rp-rook"></div>
+      <div class="promotion-choice" id="Kp-knight"></div>
+      <div class="promotion-choice" id="Bp-bishop"></div>
+      <span id="promotion-field" class="inv"></span>
     </div>
   </div>
-    <script src="mai.js"></script>
-    <script src="pieces.js"></script>
-    <script src="index.js"></script>
-  </body>
+
+  <button id="new-but">New game</button>
+  <div id="new" class="inv">
+    <h3 class="center">Choose players:</h3>
+    <p>White:
+      <select name="type">
+        <option value="Human">Human</option>
+        <option value="Mai">Mai</option>
+      </select>
+      <select name="lvl">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </p>
+    <p>Black:
+      <select name="type">
+        <option value="Human">Human</option>
+        <option value="Mai">Mai</option>
+      </select>
+      <select name="lvl">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </p>
+    <button id="start-new">Start new game</button>
+    <br>
+    <button id="auto-new">Start new AI match</button>
+  </div>
+  </div>
+  <script src="mai.js"></script>
+  <script src="pieces.js"></script>
+  <script src="index.js"></script>
+</body>
+
 </html>

@@ -30,10 +30,10 @@ class Mai {
 
     // console.log('before');
 
-    let temp_danger = [];
-    for (var p of opp) temp_danger = temp_danger.concat(p.getMoves(true));
-
-    if (moveIn([king.row, king.col], temp_danger)) if (checkMate(opp, king)) return this.color === turn ? -9999 : 9999;
+    // let temp_danger = [];
+    // for (var p of opp) temp_danger = temp_danger.concat(p.getMoves(true));
+    // if (moveIn([king.row, king.col], temp_danger)) if (checkMate(opp, king)) return this.color === turn ? -9999 : 9999;
+    if (checkMate(opp, king)) return this.color === turn ? -99999 : 99999; // TODO :: Added this so it works till end, for testing
 
     // console.log('after');
     let bScore = 0;
@@ -76,14 +76,11 @@ class Mai {
       p.getMoves();
       for (var move of p.valid) {
         let reVal = p.move(move);
-        displayBoard();
+        // displayBoard();
         // console.log(depth);
         let result = this.miniMax(nColor, depth - 1, alpha, beta);
         // console.log(depth);
         if (myTurn) {
-          if (depth == 2) {
-            // console.log(depth, 'blablbalbalblabkjalblaba');
-          }
           if (result[0] > bestResult[0]) {
             // console.log(result, bestResult);
             bestResult = result;
@@ -123,7 +120,7 @@ class Mai {
   }
   move() {
     let result = this.miniMax(this.color, this.depth, -9999, 9999);
-    // console.log(result);
+    console.log(result);
     return result[1].move(result[2]);
   }
 }

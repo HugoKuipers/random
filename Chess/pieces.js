@@ -5,6 +5,7 @@ var promo = document.getElementById('promo');
 var proField = document.getElementById('promotion-field');
 var newBut = document.getElementById('new-but');
 var startNew = document.getElementById('start-new');
+var startNewAuto = document.getElementById('auto-new');
 var newW = document.getElementById('new');
 var activePiece = null;
 var movePlayer = 'white';
@@ -167,6 +168,7 @@ class Pawn extends Piece {
 
     if (m[2] === 'e') {
       row = black ? row - 1 : row + 1;
+      if (!b[row][col]) return reVal; // TODO :: ugly fix
 
       reVal.push(new Pos(row, col, b[row][col]));
       pieces.splice(pieces.indexOf(b[row][col]), 1);

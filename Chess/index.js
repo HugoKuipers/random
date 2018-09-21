@@ -222,7 +222,7 @@ function checkMate(opp, king) {
     piece.getMoves();
     for (var move of piece.valid) {
       let reVal = piece.move(move);
-      if(quickCheck(opp, king)) {
+      if (quickCheck(opp, king)) {
         restore(reVal);
         return false;
       }
@@ -305,7 +305,7 @@ promo.onclick = function(e) {
 };
 
 newBut.onclick = function() {
-  newW.classList.remove('inv');
+  newW.classList.toggle('inv');
 };
 
 startNew.onclick = function() {
@@ -331,6 +331,18 @@ startNew.onclick = function() {
   resetColors();
 
   if (!startForMai) return;
+
+  movePlayer = 'black';
+  nextPlayer();
+};
+
+startNewAuto.onclick = () => {
+  wplayer = new Mai(3, 'white');
+  bplayer = new Mai(2, 'black');
+
+  resetBoard();
+  displayBoard();
+  resetColors();
 
   movePlayer = 'black';
   nextPlayer();
