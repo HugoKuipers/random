@@ -58,37 +58,19 @@ class Mai {
     return this.color === 'white' ? wScore - bScore : bScore - wScore;
   }
   miniMax(turn, depth, alpha, beta) {
-    // console.log(depth);
     let upState = this.upState(turn);
     if (upState !== 1) return [upState];
 
     if (depth === 0) return [this.eva(turn)];
 
-    let king;
-    let me;
-    let opp;
-    let nColor;
-    let bestResult;
-    let myTurn;
-    if (turn == 'white') {
-      king = wking;
-      me = wpieces;
-      nColor = 'black';
-      opp = bpieces;
-    } else {
-      king = bking;
-      me = bpieces;
-      nColor = 'white';
-      opp = wpieces;
-    }
+    const black = turn === 'black';
+    // const king = black ? bking : wking;
+    // const opp = black ? wpieces : bpieces;
+    const nColor = black ? 'white' : 'black';
+    const me = black ? bpieces : wpieces;
 
-    if (this.color == turn) {
-      bestResult = [-999999];
-      myTurn = true;
-    } else {
-      bestResult = [999999];
-      myTurn = false;
-    }
+    let myTurn = this.color === turn;
+    let bestResult = myTurn ? [-999999] : [999999];
 
     for (var p of me) {
       p.getMoves();
@@ -136,8 +118,8 @@ class Mai {
         }
         restore(reVal);
       }
-      return bestResult;
     }
+    return bestResult;
   }
   move() {
     let result = this.miniMax(this.color, this.depth, -9999, 9999);
