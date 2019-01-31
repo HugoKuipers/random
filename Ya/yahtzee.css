@@ -47,6 +47,14 @@ p {
   padding: 6px;
 }
 
+#score {
+  width: 75%;
+}
+
+#score th:nth-child(-n+5) {
+  width: 4%;
+}
+
 .center {
   text-align: center;
 }

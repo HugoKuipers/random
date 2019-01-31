@@ -40,6 +40,11 @@ function rollDice(sides) {
 
 function calcScore(dice, chance, multi) {
   let score = Object.assign({}, dice);
+
+  const signs = ['\\', '|', '/', '-']
+
+  for (let i = 0; i < 5 - Object.keys(dice).length; i++) score[signs[i]] = '-'
+  
   score["3 of a kind"] = 0;
   score["4 of a kind"] = 0;
   score["Small strait"] = 0;
@@ -47,7 +52,6 @@ function calcScore(dice, chance, multi) {
   score["Full House"] = 0;
   score["Yahtzee"] = 0;
   score["Chance"] = chance;
-  console.log(score);
 
   let strait = [];
   let fullH = [false, false];
@@ -82,34 +86,28 @@ function calcScore(dice, chance, multi) {
 
   if (strait.length < 4) return score;
 
-  strait.sort();
-  let bestS = 0;
-  let nowS = 0;
-  for (let m = 0; m < strait.length - 1; m++) {
-    if (strait[m] + 1 == strait[m + 1]) {
-      nowS++;
-      if (bestS < nowS) bestS = nowS;
-    } else {
-      nowS = 0;
-    }
-  }
-  if (bestS > 2) {
-    score[8] = 30 * multi;
-    if (bestS > 3) {
-      score[9] = 40 * multi;
-    }
+  let dicePips = Object.keys(dice)
+  let maxStrait = 0
+  let straitCount = 0
+  
+  for (let index = 0; index < dicePips.length - 1; index++) {
+    if (parseInt(dicePips[index]) + 1 === parseInt(dicePips[index + 1])) straitCount++
+    else straitCount = 0
+    if (straitCount > maxStrait) maxStrait = straitCount
   }
 
+  if (maxStrait >= 3) score["Small strait"] = 30
+  if (maxStrait >= 4) score["Large strait"] = 40
+  
   return score;
 }
 
 function updateDisplay(score) {
   let tHtml = "";
   let sHtml = "";
-  console.log(score);
 
   for (const scoreType in score) {
-    tHtml += `<td>${scoreType}</td>`;
+    tHtml += `<th>${scoreType}</th>`;
     sHtml += `<td>${score[scoreType]}</td>`;
   }
 
