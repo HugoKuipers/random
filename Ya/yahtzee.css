@@ -1,0 +1,71 @@
+html {
+  background-color: rgb(242, 210, 154);
+}
+
+p {
+  font-size: 20px;
+}
+
+#game {
+  border: 2px solid red;
+  border-radius: 25px;
+  background-color: rgb(233, 179, 83);
+  top: 10px;
+  margin: auto;
+  height: 600px;
+  width: 1000px;
+  position: relative;
+  text-align: center;
+}
+
+#dice {
+  border-top: 2px solid red;
+  top: 50%;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+}
+
+#dice div {
+  margin: 90px 40px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border: 2px red solid;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 90px;
+  display: inline-block;
+  color: rgb(0, 33, 91);
+}
+
+#score, #score th, #score td {
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 6px;
+}
+
+.center {
+  text-align: center;
+}
+
+.large {
+  font-size: 50px;
+  font-style: bold;
+  font-family: serif;
+}
+
+.inv {
+  display: none;
+}
+
+.btn {
+  margin: auto;
+  position: relative;
+  border: 1px solid rgb(222, 93, 1);
+  font-size: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+}
