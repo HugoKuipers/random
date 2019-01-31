@@ -31,7 +31,6 @@ function rollDice(sides) {
       dice[n] = 1
     }
   }
-
   return dice
 }
 
@@ -49,7 +48,7 @@ function calcScore(dice,multi) {
   for(let d in dice) {
     let a = dice[d]
     chance += d * a
-    strait.push(d)
+    strait.push(parseInt(d))
 
     if(d < 7) {
       score[d-1] = d * a
@@ -73,7 +72,7 @@ function calcScore(dice,multi) {
   let bestS = 0
   let nowS = 0
   for(let m = 0; m < strait.length-1; m++) {
-    if(strait[m] == strait[m+1]+1) {
+    if(strait[m]+1 == strait[m+1]) {
       nowS++
       if(bestS < nowS) bestS = nowS
     } else {
@@ -114,7 +113,7 @@ function updateDisplay(dice, score) {
   let countEx = 0
   for(let i in score[0]) {
     let s = score[0][i]
-    if(s == 0 && i < 6 && score[1].length > countEx) {
+    if(s == 0 && i < 6 && Object.keys(score[1]).length > countEx) {
       optNum[i].innerHTML = Object.keys(score[1])[countEx] + "'s"
       sHtml += '<td>' + score[1][Object.keys(score[1])[countEx]] + '</td>'
       countEx++
