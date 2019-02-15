@@ -27,7 +27,7 @@ function rollDice(sides) {
   let dHtml = "";
   let dice = {};
   let chance = 0;
-  for (let i = 0; i < 5; i++) {
+  for(let i = 0; i < 5; i++) {
     let n = Math.ceil(Math.random() * sides);
     dHtml += `<div>${n}</div>`;
     chance += n;
@@ -44,7 +44,7 @@ function calcScore(dice, chance, multi) {
   const signs = ['\\', '|', '/', '-']
 
   for (let i = 0; i < 5 - Object.keys(dice).length; i++) score[signs[i]] = '-'
-  
+
   score["3 of a kind"] = 0;
   score["4 of a kind"] = 0;
   score["Small strait"] = 0;
@@ -89,16 +89,17 @@ function calcScore(dice, chance, multi) {
   let dicePips = Object.keys(dice)
   let maxStrait = 0
   let straitCount = 0
-  
+
   for (let index = 0; index < dicePips.length - 1; index++) {
     if (parseInt(dicePips[index]) + 1 === parseInt(dicePips[index + 1])) straitCount++
     else straitCount = 0
+
     if (straitCount > maxStrait) maxStrait = straitCount
   }
 
   if (maxStrait >= 3) score["Small strait"] = 30
   if (maxStrait >= 4) score["Large strait"] = 40
-  
+
   return score;
 }
 
