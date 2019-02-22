@@ -12,14 +12,14 @@
           <tbody>
             <tr id="score-row">
               <td v-for="(value,key) in score" @click="pickScore(key,value)" :class="{ locked: key in lockedScore, clickable: (!(key in lockedScore)) }">{{ value }}</td>
-              <td>{{ totalScore }}</td>
+              <td>{{ totalScore() }}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div id="dice">
-        <div v-for="(die,index) in dice" @click="pickDie(index)" :class="{ locked: saveDice[index] === true, clickable: (round < 4 && !saveDice[index]) }"> {{ die }} </div>
+        <div v-for="(die,index) in dice" @click="pickDie(index)" :class="{locked: saveDice[index], clickable: round < 4}">{{ die }}</div>
       </div>
     </div>
 </template>
@@ -33,18 +33,8 @@ export default {
       score: {},
       lockedScore: {},
       dice: [],
-      saveDice : {},
+      saveDice: {},
       round: 1,
-    }
-  },
-
-  computed: {
-    totalScore: function () {
-      let sum = 0;
-      for(let p in this.lockedScore) {
-        sum += this.lockedScore[p];
-      }
-      return sum;
     }
   },
 
@@ -69,7 +59,7 @@ export default {
           n = this.saveDice[i];
         } else {
           n = Math.ceil(Math.random() * 6);
-          this.saveDice[i] = 0;
+          this.$set(this.saveDice, i, 0);
         }
         this.dice.push(n);
         this.score.Chance += n;
@@ -128,19 +118,25 @@ export default {
 
     pickScore: function(key,value) {
       if(key in this.lockedScore) return;
+      
       this.lockedScore[key] = value;
       this.round = 1;
       this.dice = [];
       this.score = {};
+      this.saveDice = {};
     },
 
     pickDie: function(index) {
       if(this.round == 4) return;
-      if(this.saveDice) {
-        this.saveDice = 0;
-      } else {
-        this.saveDice = dice[index];
-      }
+
+      const value = this.saveDice[index] ? 0 : this.dice[index]
+      this.$set(this.saveDice, index, value);
+    },
+
+    totalScore: function () {
+      let sum = 0;
+      for(let p in this.lockedScore) sum += this.lockedScore[p];
+      return sum;
     }
   }
 };
